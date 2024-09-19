@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     border:1px solid #dcdcdc;
+    width:100%;
 }
 .task_input{
     color:#000;
