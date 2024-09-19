@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TaskForm.css";
 import TagButton from "./TagButton";
 
-const TaskForm = () => {
+const TaskForm = ({setTasks}) => {
     const [taskData, setTaskData] = useState({
         Task: "",
         Status: "Todo",
@@ -17,6 +17,17 @@ const TaskForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(taskData);
+        setTasks (prev => 
+           {
+            return [ ...prev , taskData]
+           }
+        )
+      setTaskData({
+        Task: "",
+        Status: "Todo",
+        Tags: [],
+    });
+    console.log(taskData);
     };
 
     const checkTag = (tag) => {
@@ -38,6 +49,7 @@ const TaskForm = () => {
             <form onSubmit={handleSubmit}>
                 <input
                     className="task_input"
+                    value = {taskData.Task}
                     type="text"
                     placeholder="Enter Your Task"
                     name="Task"
@@ -50,9 +62,9 @@ const TaskForm = () => {
                     <TagButton tagName="React" selectTag={selectTag} selectedtag={checkTag("React")} />
              
                 <div className="task_select">
-                    <select className="task_status" onChange={handleChangeInput} name="Status">
-                        <option value="Todo">Todo</option>
-                        <option value="Going to do">Going to do</option>
+                    <select className="task_status" value={taskData.Status} onChange={handleChangeInput} name="Status">
+                        <option value="todo">Todo</option>
+                        <option value="doing">Doing</option>
                         <option value="done">Done</option>
                     </select>
                     <button className="task_submit" type="submit">+Add Task</button>
